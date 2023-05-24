@@ -135,14 +135,16 @@ function DrawerAppBar(props) {
               transformOrigin={{ horizontal: 'right', vertical: 'top' }}
               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-               <Link component={RouterLink} to='/profile'>
+              <Link component={RouterLink} to='/profile'>
                 <MenuItem onClick={handleClose}>
                   <Avatar /> Profile
                 </MenuItem>
               </Link>
-            <MenuItem onClick={handleClose}>
-              <Avatar /> My account
-            </MenuItem>
+              <Link component={RouterLink} to='/createvenue'>
+                <MenuItem onClick={handleClose}>
+                  List venue
+                </MenuItem>
+              </Link>
             <Divider />
             <Link component={RouterLink} to='/'>
             <MenuItem onClick={handleLogout} size="small" variant="contained">

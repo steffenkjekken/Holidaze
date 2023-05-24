@@ -21,12 +21,10 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
-      if (accessToken!== null) {
         state.user = action.payload
         console.log(action.payload.user);
         save("UserData", state.user)
         state.auth = true;
-      }
     },
     logout: (state) => {
       state.auth = false;

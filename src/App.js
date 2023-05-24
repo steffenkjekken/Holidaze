@@ -5,24 +5,24 @@ import Login from './pages/Login';
 import Home from './pages/Home'
 import Venue from './pages/Venue';
 import Profile from './pages/Profile';
+import CreateVenue from './pages/CreateVenue';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 function App() {
 
   const theme = createTheme({
     components: {
-      // Name of the component
       MuiPickersDay: {
         styleOverrides: {
-          // Name of the slot
           root: {
-            // Some CSS
             backgroundColor: "white",
-            // add variant styles like so
             "&.Mui-disabled": {
-              "backgroundColor": "#ff9ab1",
+              "backgroundColor": "#cecece",
+              '&:hover': {
+                background: "#f00",
+             },
               ":not(.Mui-selected)": {
-                "color": "white",
+                "color": "black",
               }
             },
           },
@@ -41,6 +41,7 @@ function App() {
       <Route path="/register" element={<RegisterUser/>}/>
       <Route path="/login" element={<Login/>}/>
       <Route path="/profile" element={<Profile/>}/>
+      <Route path="/createvenue" element={<CreateVenue/>}/>
       <Route path="*" element={<p>Not Found</p>}/>
     </Routes>
     </Layout>

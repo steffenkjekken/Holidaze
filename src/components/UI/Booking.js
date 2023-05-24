@@ -7,10 +7,10 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import useApi from '../../hooks/useApi';
 import { useState } from 'react';
-import { CreateBookingURL } from '../utils/constants';
+import { BookingURL } from '../utils/constants';
 import axios from 'axios';
-import { load } from '../utils/storage';
 import format from 'date-fns/format';
+import { options } from '../utils/constants';
 
 export const Booking = () => {
     const {id} = useParams()
@@ -19,22 +19,16 @@ export const Booking = () => {
     const [bookingData, setBookingData] = useState({
             venueId: id
         })
-    
+
     const handleChange = (user, value)  => {
         setBookingData({...bookingData, [user]: value})
         console.log(value);
     }
 
-    const options = {
-        headers: {
-          Authorization: `Bearer ${load('AuthToken')}`,
-        },
-      }
-
     const handleBooking = async (e) => {
         e.preventDefault();
         try {
-          const response = await axios.post(CreateBookingURL, bookingData, options);
+          const response = await axios.post(BookingURL, bookingData, options);
           console.log(bookingData);
           console.log(response);
         } catch (error) {
@@ -116,7 +110,16 @@ export const Booking = () => {
                     id="outlined"
                     type='number'
                     label="Guests"
+                    InputProps={{ inputProps: { min: 0, max: data.maxGuests } }}
                     onChange={(event) => handleChange('guests', event.target.valueAsNumber)}
+                    helperText={bookingData.guests > data.maxGuests ? "Exceeded maximum guests" : ''}
+                    sx={{
+                      '& p':{
+                        color:'blue',
+                        width: 'max-content',
+                        ml: 0
+                      },
+                    }}
                     />
             </FormControl>
             <Button

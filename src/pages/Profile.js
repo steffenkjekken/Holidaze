@@ -3,9 +3,7 @@ import Box from '@mui/material/Box'
 import { Grid, Typography, Avatar, } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useSelector } from 'react-redux';
-import { BookingsByProfile } from '../components/utils/constants';
-import { options } from '../components/utils/constants';
-import axios from 'axios';
+import ProfileBookings from '../components/UI/ProfileBookings';
 //import { Link as RouterLink } from 'react-router-dom';
 
 
@@ -13,19 +11,6 @@ const theme = createTheme();
 
 const Profile = () => {
     const user = useSelector((state) => state.auth.user);
-
-    const { data, isLoading, isError } = axios.get(BookingsByProfile, options);
-    
-    if (isLoading) {
-      return <span className="visually-hidden">Loading...</span>;
-    }
-  
-    if (isError) {
-      return <div>Error</div>;
-    }
-
-  console.log(data);
-    
   
     return (
         <>
@@ -58,10 +43,16 @@ const Profile = () => {
                 </Typography>
                 <Box>
                     <Typography>
-                        lorem ips
+                        lorem ipsd
                     </Typography>
                 </Box>
             </Box>
+        </Grid>
+        <Grid container component="main" sx={{ 
+            height: 'auto',
+            mt: 3
+            }}>
+        <ProfileBookings/>
         </Grid>
         </ThemeProvider>
         </>
