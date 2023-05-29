@@ -6,7 +6,7 @@ import Image from 'mui-image';
 export const Item = ({venue}) => {
 
   return (
-        <Link component={RouterLink} underline="none" to={`/venues/${venue.id}`} >
+      <Link component={RouterLink} underline="none" to={`/venues/${venue.id}`} >
         <ImageListItem>
           <Image
             src={`${venue.media[0]}`}
@@ -22,11 +22,11 @@ export const Item = ({venue}) => {
             }}
           />
           <Box>
-          <Box sx={{
-                display:'flex',
-                justifyContent:'space-between'
-            }}>
-            <Typography variant="subtitle1">{venue.name}</Typography>
+            <Box sx={{
+                  display:'flex',
+                  justifyContent:'space-between'
+              }}>
+              <Typography variant="subtitle1">{venue.name}</Typography>
               <Box sx={{
                 display: "flex"
               }}>
@@ -34,9 +34,9 @@ export const Item = ({venue}) => {
                 <Typography variant="subtitle1" sx={{ mt:"8px"}}>{venue.rating}</Typography>
               </Box>
             </Box>
-          <Typography variant="subtitle2">${venue.price}</Typography>
+            <Typography variant="subtitle2">${venue.price}</Typography>
           </Box>
         </ImageListItem>
-        </Link>
+      </Link>
   )
 };

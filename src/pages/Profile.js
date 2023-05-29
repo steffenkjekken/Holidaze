@@ -5,14 +5,13 @@ import { useSelector } from 'react-redux';
 import ProfileBookings from '../components/UI/ProfileBookings';
 import ProfileVenues from '../components/UI/ProfileVenues';
 import ChangeAvatar from '../components/UI/ChangeAvatar';
-//import { Link as RouterLink } from 'react-router-dom';
 
 
 const Profile = () => {
     const user = useSelector((state) => state.auth.user);
   
     return (
-        <>
+    <>
         <Grid container component="main" sx={{ 
             height: 'auto',
             mt: 3,
@@ -49,10 +48,10 @@ const Profile = () => {
             maxWidth:'905px',
             mx:'auto'
             }}>
-        <ProfileVenues/>
-        <ProfileBookings/>
+            <ProfileVenues/>
+            <ProfileBookings/>
         </Grid>
-        </>
+    </>
     )
 }
 

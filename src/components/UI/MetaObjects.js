@@ -34,12 +34,12 @@ const MetaObjects = ({ items }) => {
     }}>
       {Object.entries(items).map(([itemName, value]) => {
         if (value) {
-          const icon = getIcon(itemName); // Get the icon based on the item name
+          const icon = getIcon(itemName); 
           return (
             <Chip key={itemName} icon={icon} label={itemName}/>
           );
         } else {
-          return null; // Don't render the item if its value is false
+          return null; 
         }
       })}
     </Box>

@@ -13,11 +13,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={enGB}>
-      <Provider store={store}>
-        <App />
-       </Provider>
-    </LocalizationProvider>
+      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={enGB}>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </LocalizationProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

@@ -1,11 +1,5 @@
 import React from 'react'
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import { Button, Slider } from '@mui/material';
+import { Button, Slider, Grid, Typography, TextField, FormGroup, FormControlLabel, Checkbox } from '@mui/material';
 import useApi from '../hooks/useApi';
 import { load } from '../components/utils/storage';
 import { URL } from '../components/utils/constants';
@@ -87,8 +81,7 @@ const CreateVenue = () => {
             if (!formData.price) {
                 errors.price = 'Price is required';
             }
-        
-            // Perform media input validation
+            
             const hasWhitespace = value.includes(' ');
             if (hasWhitespace) {
               setMediaError('URLs must be comma-separated without whitespace');
@@ -195,13 +188,10 @@ const CreateVenue = () => {
         await post(bookingData);
         console.log('Venue created successfully!');
         setOpenAlert(true)
-        // Perform any other actions or state updates upon successful creation
       } catch (error) {
         console.log('Error creating venue:', error);
       }
-        
       }
-  
     };
 
     const marks = [
@@ -238,90 +228,90 @@ const CreateVenue = () => {
         p:2,
         maxWidth: "660px",
     }}>
-        {user.venueManager ? ( 
-            <form onSubmit={handleSubmit}>
-            <Typography component="h5" sx={{
-                pt:1,
-                pb:3
-            }}>
-            {isUpdate ? 'Update venue' : 'Create venue'}
-            </Typography>
-            <Grid container spacing={3}>
-                <Grid item xs={12} sm={6}>
-                <TextField
-                    required
-                    id="name"
-                    name="name"
-                    label="Venue name"
-                    fullWidth
-                    variant="standard"
-                    defaultValue={formData.name}
-                    onChange={handleChange}
-                    error={!!nameError}
-                    helperText={nameError}
-                />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                <TextField
-                    required
-                    id="price"
-                    name="price"
-                    label="Price"
-                    fullWidth
-                    variant="standard"
-                    defaultValue={formData.price}
-                    onChange={handleChange}
-                    error={!!priceError}
-                    helperText={priceError}
-                />
-                </Grid>
-                <Grid item xs={12}>
-                <TextField
-                    required
-                    id="description"
-                    name="description"
-                    label="Description"
-                    maxRows={5}
-                    fullWidth
-                    multiline
-                    variant="standard"
-                    defaultValue={formData.description}
-                    onChange={handleChange}
-                    error={!!descriptionError}
-                    helperText={descriptionError}
-                />
-                </Grid>
-                <Grid item xs={12}>
-                <TextField
-                    id="media"
-                    name="media"
-                    label="Media"
-                    maxRows={5}
-                    fullWidth
-                    multiline
-                    variant="standard"
-                    defaultValue={formData.media.join(", ")}
-                    onChange={handleChange}
-                    error={!!mediaError}
-                    helperText={mediaError}
-                />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                <TextField
-                    required
-                    id="guests"
-                    name="guests"
-                    label="Guest"
-                    fullWidth
-                    autoComplete="shipping address-level2"
-                    variant="standard"
-                    defaultValue={formData.maxGuests}
-                    onChange={handleChange}
-                    error={!!guestsError}
-                    helperText={guestsError}
-                />
-                </Grid>
-                <Grid item xs={12} sm={6}>
+      {user.venueManager ? ( 
+        <form onSubmit={handleSubmit}>
+          <Typography component="h5" sx={{
+              pt:1,
+              pb:3
+          }}>
+          {isUpdate ? 'Update venue' : 'Create venue'}
+          </Typography>
+          <Grid container spacing={3}>
+              <Grid item xs={12} sm={6}>
+              <TextField
+                  required
+                  id="name"
+                  name="name"
+                  label="Venue name"
+                  fullWidth
+                  variant="standard"
+                  defaultValue={formData.name}
+                  onChange={handleChange}
+                  error={!!nameError}
+                  helperText={nameError}
+              />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+              <TextField
+                  required
+                  id="price"
+                  name="price"
+                  label="Price"
+                  fullWidth
+                  variant="standard"
+                  defaultValue={formData.price}
+                  onChange={handleChange}
+                  error={!!priceError}
+                  helperText={priceError}
+              />
+              </Grid>
+              <Grid item xs={12}>
+              <TextField
+                  required
+                  id="description"
+                  name="description"
+                  label="Description"
+                  maxRows={5}
+                  fullWidth
+                  multiline
+                  variant="standard"
+                  defaultValue={formData.description}
+                  onChange={handleChange}
+                  error={!!descriptionError}
+                  helperText={descriptionError}
+              />
+              </Grid>
+              <Grid item xs={12}>
+              <TextField
+                  id="media"
+                  name="media"
+                  label="Media"
+                  maxRows={5}
+                  fullWidth
+                  multiline
+                  variant="standard"
+                  defaultValue={formData.media.join(", ")}
+                  onChange={handleChange}
+                  error={!!mediaError}
+                  helperText={mediaError}
+              />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+              <TextField
+                  required
+                  id="guests"
+                  name="guests"
+                  label="Guest"
+                  fullWidth
+                  autoComplete="shipping address-level2"
+                  variant="standard"
+                  defaultValue={formData.maxGuests}
+                  onChange={handleChange}
+                  error={!!guestsError}
+                  helperText={guestsError}
+              />
+              </Grid>
+              <Grid item xs={12} sm={6}>
                 <Typography id="rating-slider" gutterBottom>
                 Rating
                 </Typography>
@@ -336,155 +326,154 @@ const CreateVenue = () => {
                     min={0}
                     max={5}
                 />
-                </Grid>
-                <Grid item xs={12}>
+              </Grid>
+              <Grid item xs={12}>
                 <Typography component='h6' gutterBottom>
                 Commodities
                 </Typography>
-                    <FormGroup  sx={{ display: 'flex', flexDirection:'row' }}>
-                        <FormControlLabel 
-                        control={<Checkbox 
-                            defaultChecked={formData.meta.wifi} 
-                            name='wifi'
-                            onChange={handleChange}
-                            />} 
-                        label="Wifi available?"
-                        sx={{
-                            flex: '49%'
-                        }}/>
-                        <FormControlLabel 
-                        control={<Checkbox 
-                            defaultChecked={formData.meta.parking}
-                            name='parking'
-                            onChange={handleChange}
-                            />} 
-                        label="Parking Available?"
-                        sx={{
-                            flex: '49%'
-                        }}/>
-                        <FormControlLabel 
-                        control={<Checkbox
-                            defaultChecked={formData.meta.breakfast} 
-                            name='breakfast'
-                            onChange={handleChange}
-                            />} 
-                        label="Breakfast included?" 
-                        sx={{
-                            flex: '49%'
-                        }}/>
-                        <FormControlLabel 
-                        control={<Checkbox
-                            defaultChecked={formData.meta.pets} 
-                            name='pets'
-                            onChange={handleChange}
-                            />} 
-                        label="Pets allowed?"
-                        sx={{
-                            flex: '49%'
-                        }}/>
-                    </FormGroup>
-                </Grid>
-                </Grid>
-                <Typography component='h6' gutterBottom sx={{
-                    mt:5
-                }}>
-                Location
-                </Typography>
-                <Grid container spacing={3}>
-                <Grid item xs={12} sm={6}>
-                <TextField
-                    id="address"
-                    name="address"
-                    label="Address"
-                    fullWidth
-                    variant="standard"
-                    defaultValue={formData.address}
-                    onChange={handleChange}
-                />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                <TextField
-                    id="city"
-                    name="city"
-                    label="City"
-                    fullWidth
-                    variant="standard"
-                    defaultValue={formData.city}
-                    onChange={handleChange}
-                />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                <TextField
-                    id="zip"
-                    name="zip"
-                    label="Zip / Postal code"
-                    fullWidth
-                    autoComplete="shipping postal-code"
-                    variant="standard"
-                    defaultValue={formData.zip}
-                    onChange={handleChange}
-                />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                <TextField
-                    id="country"
-                    name="country"
-                    label="Country"
-                    fullWidth
-                    autoComplete="shipping country"
-                    variant="standard"
-                    defaultValue={formData.country}
-                    onChange={handleChange}
-                />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                <TextField
-                    id="continent"
-                    name="continent"
-                    label="Continent"
-                    fullWidth
-                    variant="standard"
-                    defaultValue={formData.continent}
-                    onChange={handleChange}
-                />
-                </Grid>
-                <Grid item xs={6} sm={3}>
-                <TextField
-                    id="lat"
-                    name="lat"
-                    label="Latitude"
-                    fullWidth
-                    variant="standard"
-                    type="number" 
-                    defaultValue={formData.lat}
-                    onChange={handleChange}
-                />
-                </Grid>
-                <Grid item xs={6} sm={3}>
-                <TextField
-                    id="lng"
-                    name="lng"
-                    label="Longitude"
-                    fullWidth
-                    variant="standard"
-                    type="number" 
-                    defaultValue={formData.lng}
-                    onChange={handleChange}
-                />
-                </Grid>
-                <Grid item xs={12}>
-                <Button variant="contained" type="submit">{isUpdate ? 'Update' : 'Create'}</Button>
-                </Grid>
+                <FormGroup  sx={{ display: 'flex', flexDirection:'row' }}>
+                    <FormControlLabel 
+                    control={<Checkbox 
+                        defaultChecked={formData.meta.wifi} 
+                        name='wifi'
+                        onChange={handleChange}
+                        />} 
+                    label="Wifi available?"
+                    sx={{
+                        flex: '49%'
+                    }}/>
+                    <FormControlLabel 
+                    control={<Checkbox 
+                        defaultChecked={formData.meta.parking}
+                        name='parking'
+                        onChange={handleChange}
+                        />} 
+                    label="Parking Available?"
+                    sx={{
+                        flex: '49%'
+                    }}/>
+                    <FormControlLabel 
+                    control={<Checkbox
+                        defaultChecked={formData.meta.breakfast} 
+                        name='breakfast'
+                        onChange={handleChange}
+                        />} 
+                    label="Breakfast included?" 
+                    sx={{
+                        flex: '49%'
+                    }}/>
+                    <FormControlLabel 
+                    control={<Checkbox
+                        defaultChecked={formData.meta.pets} 
+                        name='pets'
+                        onChange={handleChange}
+                        />} 
+                    label="Pets allowed?"
+                    sx={{
+                        flex: '49%'
+                    }}/>
+                </FormGroup>
+              </Grid>
             </Grid>
-            </form>
-        
+            <Typography component='h6' gutterBottom sx={{
+                mt:5
+            }}>
+            Location
+            </Typography>
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={6}>
+              <TextField
+                  id="address"
+                  name="address"
+                  label="Address"
+                  fullWidth
+                  variant="standard"
+                  defaultValue={formData.address}
+                  onChange={handleChange}
+              />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+              <TextField
+                  id="city"
+                  name="city"
+                  label="City"
+                  fullWidth
+                  variant="standard"
+                  defaultValue={formData.city}
+                  onChange={handleChange}
+              />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+              <TextField
+                  id="zip"
+                  name="zip"
+                  label="Zip / Postal code"
+                  fullWidth
+                  autoComplete="shipping postal-code"
+                  variant="standard"
+                  defaultValue={formData.zip}
+                  onChange={handleChange}
+              />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+              <TextField
+                  id="country"
+                  name="country"
+                  label="Country"
+                  fullWidth
+                  autoComplete="shipping country"
+                  variant="standard"
+                  defaultValue={formData.country}
+                  onChange={handleChange}
+              />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+              <TextField
+                  id="continent"
+                  name="continent"
+                  label="Continent"
+                  fullWidth
+                  variant="standard"
+                  defaultValue={formData.continent}
+                  onChange={handleChange}
+              />
+              </Grid>
+              <Grid item xs={6} sm={3}>
+              <TextField
+                  id="lat"
+                  name="lat"
+                  label="Latitude"
+                  fullWidth
+                  variant="standard"
+                  type="number" 
+                  defaultValue={formData.lat}
+                  onChange={handleChange}
+              />
+              </Grid>
+              <Grid item xs={6} sm={3}>
+              <TextField
+                  id="lng"
+                  name="lng"
+                  label="Longitude"
+                  fullWidth
+                  variant="standard"
+                  type="number" 
+                  defaultValue={formData.lng}
+                  onChange={handleChange}
+              />
+              </Grid>
+              <Grid item xs={12}>
+                <Button variant="contained" type="submit">{isUpdate ? 'Update' : 'Create'}</Button>
+              </Grid>
+          </Grid>
+        </form>
         )
         :
         ( 
-            <VmPopup/>
+        <VmPopup/>
         )}
-      </Grid>
-      );
+    </Grid>
+  );
 }
 
 export default CreateVenue

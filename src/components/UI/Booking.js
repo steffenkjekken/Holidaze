@@ -141,23 +141,23 @@ export const Booking = () => {
         position: {sm: "sticky"},
         top: {sm: "15px"}
     }}>
-        <Typography component="h6" fontWeight={600}>{data.price}$ a night</Typography>
+      <Typography component="h6" fontWeight={600}>{data.price}$ a night</Typography>
         <Stack direction="column" paddingTop={2} spacing={1}>
             <Typography variant="body2">Check Availability</Typography>
             <Stack direction={{ xs: 'row', sm: 'column', md: 'row' }} spacing={1}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker 
-                value={value} 
-                format="DD-MM-YYYY" 
-                shouldDisableDate={bookedDates} 
-                onChange={(newValue) => handleChange('dateFrom', new Date(newValue.$d).toLocaleDateString())}
-                 />
-                <DatePicker 
-                value={value} 
-                format="DD-MM-YYYY" 
-                shouldDisableDate={bookedDates}
-                onChange={(newValue) => handleChange('dateTo', new Date(newValue.$d).toLocaleDateString())}
-                />
+                  <DatePicker 
+                  value={value} 
+                  format="DD-MM-YYYY" 
+                  shouldDisableDate={bookedDates} 
+                  onChange={(newValue) => handleChange('dateFrom', new Date(newValue.$d).toLocaleDateString())}
+                  />
+                  <DatePicker 
+                  value={value} 
+                  format="DD-MM-YYYY" 
+                  shouldDisableDate={bookedDates}
+                  onChange={(newValue) => handleChange('dateTo', new Date(newValue.$d).toLocaleDateString())}
+                  />
                 </LocalizationProvider>
             </Stack>
             <Typography variant="body2" paddingTop={1}>Number of guests (Max: {data.maxGuests} )</Typography>

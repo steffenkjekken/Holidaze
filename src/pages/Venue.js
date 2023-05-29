@@ -11,11 +11,6 @@ import MetaObjects from '../components/UI/MetaObjects';
 const Venue = () => {
 
     const {id} = useParams()
-    // const [wifi, setWifi] = useState('')
-    // const [parking, setParking] = useState('')
-    // const [breakfast, setBreakfast] = useState('')
-    // const [pets, setPets] = useState('')
-    console.log(id);
 
     const { data, isLoading, isError } = useApi(URL + "/" + id);
     console.log(data.meta);
@@ -28,14 +23,9 @@ const Venue = () => {
         return <div>Error</div>;
       };
 
-    //console.log(data.maxGuests);
-
     function CheckMediaLength() {
 
         const mediaArray = data.media
-        // const mediaLength = data.media.length
-        //console.log(mediaArray.slice(1));
-
         const firstElement = Array.from(mediaArray)[0];
         console.log(firstElement);
 
@@ -128,35 +118,34 @@ const Venue = () => {
     }
 
     return(
-       <>
        <Container sx={{ 
             pt:"20px",
             maxWidth: {md:'950px'},
-            margin: 'auto'}}> 
-        <Grid container columnSpacing={2}>
-        <Grid item xs={10}>
-            <Typography component="h1" variant="h4">{data.name}</Typography>
-            <Typography variant="subtitle1">{data.location.city}</Typography>
-            <Typography component="h6" fontWeight={600}>${data.price}</Typography>
-        </Grid>
-        <Grid item xs={2} sx={{
-            textAlign: "right"
-        }}>
-            <Typography component="h6"><StarIcon color='warning'/> {data.rating}</Typography>
-        </Grid>
-        <Grid item xs={12} paddingBottom={2}>
-            <CheckMediaLength/>
-        </Grid>
-        <Grid item xs={12} sm={7}>
-            <Typography variant="body" sx={{ whiteSpace: "break-spaces"}}>{data.description}</Typography>
-            <MetaObjects items={metaData} />
-        </Grid>
-        <Grid item xs={12} sm={5}>
-            <Booking/>
-        </Grid>
-       </Grid>
+            margin: 'auto'}}
+        > 
+            <Grid container columnSpacing={2}>
+                <Grid item xs={10}>
+                    <Typography component="h1" variant="h4">{data.name}</Typography>
+                    <Typography variant="subtitle1">{data.location.city}</Typography>
+                    <Typography component="h6" fontWeight={600}>${data.price}</Typography>
+                </Grid>
+                <Grid item xs={2} sx={{
+                    textAlign: "right"
+                }}>
+                    <Typography component="h6"><StarIcon color='warning'/> {data.rating}</Typography>
+                </Grid>
+                <Grid item xs={12} paddingBottom={2}>
+                    <CheckMediaLength/>
+                </Grid>
+                <Grid item xs={12} sm={7}>
+                    <Typography variant="body" sx={{ whiteSpace: "break-spaces"}}>{data.description}</Typography>
+                    <MetaObjects items={metaData} />
+                </Grid>
+                <Grid item xs={12} sm={5}>
+                    <Booking/>
+                </Grid>
+            </Grid>
        </Container>
-       </>
     )
 }
 

@@ -7,7 +7,6 @@ const useApi = (url, token) => {
 
   const headers = {
     Authorization: `Bearer ${token}`,
-    // Add other headers if needed
   };
 
   const fetchData = async () => {
@@ -17,7 +16,7 @@ const useApi = (url, token) => {
       const response = await fetch(url, { headers });
       const json = await response.json();
       setData(json);
-      return json; // Set the response object
+      return json; 
     } catch (error) {
       console.log(error);
       setIsError(true);
@@ -37,7 +36,7 @@ const useApi = (url, token) => {
       });
       const json = await response.json();
       setData(json);
-      return json; // Set the response object
+      return json; 
     } catch (error) {
       console.log(error);
       setIsError(true);
@@ -58,7 +57,7 @@ const useApi = (url, token) => {
       });
       const json = await response.json();
       setData(json);
-      return json; // Set the response object
+      return json; 
     } catch (error) {
       console.log(error);
       setIsError(true);

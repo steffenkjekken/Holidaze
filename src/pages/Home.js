@@ -1,15 +1,12 @@
 import List from "../components/UI/List";
 import { useState } from "react";
-import { TextField, Box, Typography } from "@mui/material";
+import { TextField, Box, Typography, InputAdornment } from "@mui/material";
 import HeaderPhoto from "../assets/images/HeaderPhoto.jpg"
-import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
-
 
 const Venues = () => {
     const [searchField, setSearchField] = useState("");
     let inputHandler = (e) => {
-    //convert input text to lower case
     var lowerCase = e.target.value.toLowerCase();
     setSearchField(lowerCase);
     };

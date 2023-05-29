@@ -1,11 +1,5 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import {Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText} from '@mui/material';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { load } from '../utils/storage';
@@ -23,7 +17,6 @@ export default function ChangeAvatar() {
     const token = load('AuthToken')
 
     const { put } = useApi(ProfileURL, token);
-    //console.log("Parameters:", ProfileURL + user.user, token);
 
     const handleChange = (user, value) => {
         setFormData({...formData, [user]: value})
@@ -46,7 +39,7 @@ export default function ChangeAvatar() {
         } finally {
             console.log('Success');
         }
-        };
+      };
 
     const handleClickOpen = () => {
     setOpen(true);

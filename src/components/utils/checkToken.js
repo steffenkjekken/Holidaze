@@ -8,7 +8,7 @@ export const checkToken = async () => {
     console.log(token);
 
     if (!token) {
-      return false; // Token is not present
+      return false; 
     }
 
     const response = await fetch(ProfileURL + "/" + user.user, {
@@ -17,7 +17,6 @@ export const checkToken = async () => {
         Authorization: `Bearer ${token}`,
       },
     });
-
 
     return response.ok;
   } catch (error) {

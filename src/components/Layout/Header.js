@@ -1,34 +1,33 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
+import { ListItemIcon, 
+  AppBar,
+  Box, 
+  CssBaseline, 
+  Divider, 
+  Drawer, 
+  IconButton, 
+  List, 
+  ListItem, 
+  ListItemButton, 
+  ListItemText, 
+  Toolbar, 
+  Typography, 
+  Button, 
+  Avatar, 
+  Menu, 
+  MenuItem, 
+  Stack, 
+  Link } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Stack from '@mui/material/Stack';
-import Link from '@mui/material/Link';
-import { ListItemIcon } from '@mui/material';
-import { Logout } from '@mui/icons-material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { Link as RouterLink } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { remove } from '../utils/storage';
+import { Logout } from '@mui/icons-material';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { remove } from '../utils/storage';
 import { logout } from '../../store/auth';
 
 const drawerWidth = 240;
-const navItems = [<Link component={RouterLink} to="/" color="inherit" underline='none'>Venues</Link>, 'About', 'Contact', 'Rent out your Venue'];
+const navItems = [<Link component={RouterLink} to="/" color="inherit" underline='none'>Venues</Link>, 'About', 'Contact'];
 const avatarItems = ['Profile', 'Bookings'];
 
 function DrawerAppBar(props) {
@@ -65,9 +64,9 @@ function DrawerAppBar(props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Link to="/">
-      <Typography component="h6" sx={{ my: 2 }}>
-        Holidaze
-      </Typography>
+        <Typography component="h6" sx={{ my: 2 }}>
+          Holidaze
+        </Typography>
       </Link>
       <Divider />
       <List>
@@ -107,7 +106,6 @@ function DrawerAppBar(props) {
           >
             <MenuIcon />
           </IconButton>
-          
           <Typography
             variant="h6"
             component="h1"
@@ -115,8 +113,8 @@ function DrawerAppBar(props) {
           >
             <Link component={RouterLink} to="/" color="inherit" underline='none'>Holidaze</Link>
           </Typography>
-            {auth ? 
-            <Stack direction="row" spacing={1}> 
+          {auth ? 
+          <Stack direction="row" spacing={1}> 
             <Button
             variant='outlined'
             color='primary'
@@ -147,58 +145,59 @@ function DrawerAppBar(props) {
               </Link>
               <Link component={RouterLink} underline="none" to='/createvenue'>
                 <MenuItem onClick={handleClose}>
-                  List venue
+                  Rent out your venue
                 </MenuItem>
               </Link>
-            <Divider />
-            <Link component={RouterLink} underline="none" to='/'>
-            <MenuItem onClick={handleLogout} size="small">
-              <ListItemIcon>
-                <Logout fontSize="small" />
-              </ListItemIcon>
-              Logout
-            </MenuItem>
-            </Link>
-          </Menu>
-            </Stack>
-            :
-            <Stack direction="row" spacing={1}>
+              <Divider />
+              <Link component={RouterLink} underline="none" to='/'>
+                <MenuItem onClick={handleLogout} size="small">
+                  <ListItemIcon>
+                    <Logout fontSize="small" />
+                  </ListItemIcon>
+                  Logout
+                </MenuItem>
+              </Link>
+            </Menu>
+          </Stack>
+          :
+          <Stack direction="row" spacing={1}>
             <Link component={RouterLink} underline="none" to='/login'>
-            <Button size="small" color='secondary' variant="contained" sx={{
-              backgroundColor:"white",
-              color:"red"
-            }}>Sign in</Button>
+              <Button size="small" color='secondary' variant="contained" sx={{
+                backgroundColor:"white",
+                color:"red"
+              }}>Sign in
+              </Button>
             </Link>
             <Link component={RouterLink} underline="none" to='/register'>
-            <Button size="small" color='secondary' variant="outlined">Register</Button>
+              <Button size="small" color='secondary' variant="outlined">Register</Button>
             </Link>
-            </Stack> 
-            }
+          </Stack> 
+          }
           <Avatar onClick={handleOpenUserMenu} sx={{marginLeft: 'auto', display: 'none'}} alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
         </Toolbar>
       </AppBar>
       <Box component="nav">
         <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {avatarItems.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+          sx={{ mt: '45px' }}
+          id="menu-appbar"
+          anchorEl={anchorElUser}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          open={Boolean(anchorElUser)}
+          onClose={handleCloseUserMenu}
+        >
+          {avatarItems.map((setting) => (
+            <MenuItem key={setting} onClick={handleCloseUserMenu}>
+              <Typography textAlign="center">{setting}</Typography>
+            </MenuItem>
+          ))}
         </Menu>
         <Drawer
           container={container}

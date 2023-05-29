@@ -6,7 +6,6 @@ const userData = load("UserData")
 const initialState = {
   auth: false,
   user: userData || [],
-  
 };
 
 const accessToken = load("AuthToken")

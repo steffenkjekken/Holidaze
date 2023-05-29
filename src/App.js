@@ -15,19 +15,19 @@ function App() {
   return (
     <>
     <ThemeProvider theme={theme}>
-    <Layout>
-    <Routes>
-      <Route element={<ProtectedRoutes/>}>
-        <Route path="/profile" element={<Profile/>}/>
-        <Route path="/createvenue" element={<CreateVenue/>}/>
-      </Route>
-      <Route path="/" element={<Home/>}/>
-      <Route path="/venues/:id" element={<Venue/>}/>
-      <Route path="/register" element={<RegisterUser/>}/>
-      <Route path="/login" element={<Login/>}/>
-      <Route path="*" element={<p>Not Found</p>}/>
-    </Routes>
-    </Layout>
+      <Layout>
+        <Routes>
+          <Route element={<ProtectedRoutes/>}>
+            <Route path="/profile" element={<Profile/>}/>
+            <Route path="/createvenue" element={<CreateVenue/>}/>
+          </Route>
+          <Route path="/" element={<Home/>}/>
+          <Route path="/venues/:id" element={<Venue/>}/>
+          <Route path="/register" element={<RegisterUser/>}/>
+          <Route path="/login" element={<Login/>}/>
+          <Route path="*" element={<p>Not Found</p>}/>
+        </Routes>
+      </Layout>
     </ThemeProvider>
     </>
   );
