@@ -6,7 +6,6 @@ export const options = {
     },
   }
 
-//prevent error
 let BookingsByProfile = null
 let VenuesByProfile = null
 let UpdateMedia = null
