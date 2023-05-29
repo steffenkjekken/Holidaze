@@ -35,8 +35,6 @@ const CreateVenue = () => {
     const [guestsError, setGuestsError] = useState('');
     const [setOpenAlert] = React.useState(false);
 
-    const { wifi, parking, breakfast, pets} = checked;
-
     const token = load('AuthToken')
     const { post, put } = useApi(URL, token);
 

@@ -15,6 +15,7 @@ export const theme = createTheme ({
     h1: {
       fontFamily: 'Fugaz One',
     },
+    
   },
   props: {
     MuiLink: {
