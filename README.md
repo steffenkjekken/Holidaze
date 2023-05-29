@@ -4,9 +4,9 @@
 **I have for first time used Mui as my CSS-Framework.**
 
 
-<sub>When testing on mobile device, booking a venue was a bit glitchy, and sometimes didnt work as intended. I have not been able to fid out what caused this</sub>
-<sub>It seems that booking venues in Chrome is not working, as the date is formated differently from Firefox 
-  (Chrome: 11.11.1111, Firefox: 11/11/1111</sub>
+-When testing on mobile device, booking a venue was a bit glitchy, and sometimes didnt work as intended. I have not been able to fid out what caused this
+-It seems that booking venues in Chrome is not working, as the date is formated differently from Firefox 
+  (Chrome: 11.11.1111, Firefox: 11/11/1111
 
 
 
