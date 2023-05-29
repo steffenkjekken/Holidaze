@@ -1,3 +1,13 @@
+# Exam project front end development year 2
+
+Brief
+A newly launched accommodation booking site called Holidaze has approached you to develop a brand new front end for their application. While they have a list of required features, the design and user experience has not been specified. Working with the official API documentation, plan, design and build a modern front end accommodation booking application.
+
+There are two aspects to this brief: the customer-facing side of the website where users can book holidays at a venue, and an admin-facing side of the website where users can register and manage venues and bookings at those venues.
+
+I have not created sites for About and Contact, since this wasnt prioritized and not a part of user stories.
+I have for first time used Mui as my CSS-Framework.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
