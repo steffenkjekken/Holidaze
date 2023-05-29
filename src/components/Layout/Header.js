@@ -26,7 +26,6 @@ import { useNavigate } from 'react-router-dom';
 import { remove } from '../utils/storage';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../store/auth';
-import { useRef } from 'react';
 
 const drawerWidth = 240;
 const navItems = [<Link component={RouterLink} to="/" color="inherit" underline='none'>Venues</Link>, 'About', 'Contact', 'Rent out your Venue'];
@@ -53,8 +52,6 @@ function DrawerAppBar(props) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
-  const formRef = useRef(null);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);

@@ -13,7 +13,6 @@ import { useSelector } from 'react-redux';
 import VmPopup from '../components/UI/VmPopup';
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import SuccessAlert from '../components/UI/alerts/success';
 
 const CreateVenue = () => {
 
