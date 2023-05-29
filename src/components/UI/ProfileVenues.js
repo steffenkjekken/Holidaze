@@ -28,6 +28,7 @@ import EventSeatIcon from '@mui/icons-material/EventSeat';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import format from 'date-fns/format';
+import axios from 'axios';
 
 const ProfileVenues = () => {
 
@@ -55,7 +56,7 @@ const ProfileVenues = () => {
   
     const fetchBookings = async (venueId) => {
       try {
-        const response = await fetch(
+        const response = await axios.get(
           `https://api.noroff.dev/api/v1/holidaze/venues/${venueId}?&_bookings=true`,
           {
             headers: {
@@ -63,10 +64,9 @@ const ProfileVenues = () => {
             },
           }
         );
-          const bookingsResponse = await response.json();
-          const fetchedBookingsData = bookingsResponse.bookings;
-          setBookingsData(fetchedBookingsData);
-          handleClickOpen();
+        const fetchedBookingsData = response.data.bookings;
+        setBookingsData(fetchedBookingsData);
+        handleClickOpen();
       } catch (error) {
         console.log(error);
       }
