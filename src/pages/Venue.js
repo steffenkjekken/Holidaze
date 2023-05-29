@@ -15,6 +15,7 @@ const Venue = () => {
     // const [parking, setParking] = useState('')
     // const [breakfast, setBreakfast] = useState('')
     // const [pets, setPets] = useState('')
+    console.log(id);
 
     const { data, isLoading, isError } = useApi(URL + "/" + id);
     console.log(data.meta);
@@ -40,9 +41,9 @@ const Venue = () => {
 
         if (data.media.length === 2) {
             return(
-                <Grid container wrap columnSpacing={1}>
+                <Grid container wrap='nowrap' columnSpacing={1}>
                     {mediaArray.map((item, index) => (
-                    <Grid item direction="row" xs={12}>
+                    <Grid item xs={12} key={index}>
                      <Image
                         src={item}
                         srcSet={item}
@@ -65,7 +66,7 @@ const Venue = () => {
         
         if (data.media.length > 2) {
             return(
-                <Grid container wrap columnSpacing={1}>
+                <Grid container wrap='nowrap' columnSpacing={1}>
                 <Grid item xs={12}>
                     <Image
                     src={firstElement}
@@ -85,7 +86,7 @@ const Venue = () => {
                     display: { xs: 'none', sm: 'inline' }
                 }}>
                   {mediaArray.slice(1-3).map((item, index) => (
-                    <Grid item direction="row" xs={12}>
+                    <Grid item xs={12} key={index}>
                      <Image
                         src={item}
                         srcSet={item}
@@ -136,12 +137,12 @@ const Venue = () => {
         <Grid item xs={10}>
             <Typography component="h1" variant="h4">{data.name}</Typography>
             <Typography variant="subtitle1">{data.location.city}</Typography>
-            <Typography variant="h6" fontWeight={600}>${data.price}</Typography>
+            <Typography component="h6" fontWeight={600}>${data.price}</Typography>
         </Grid>
         <Grid item xs={2} sx={{
             textAlign: "right"
         }}>
-            <Typography variant="h6"><StarIcon color='warning'/> {data.rating}</Typography>
+            <Typography component="h6"><StarIcon color='warning'/> {data.rating}</Typography>
         </Grid>
         <Grid item xs={12} paddingBottom={2}>
             <CheckMediaLength/>

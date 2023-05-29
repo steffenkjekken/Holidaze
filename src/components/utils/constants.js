@@ -8,10 +8,17 @@ export const options = {
 
 //prevent error
 let BookingsByProfile = null
+let VenuesByProfile = null
+let UpdateMedia = null
+
+
 const name = load('UserData')
 if (name && name.user) {
+  UpdateMedia = `https://api.noroff.dev/api/v1/holidaze/profiles/${name.user}/media`;
   BookingsByProfile = `https://api.noroff.dev/api/v1/holidaze/profiles/${name.user}/bookings?_venue=true`;
+  VenuesByProfile = `https://api.noroff.dev/api/v1/holidaze/profiles/${name.user}/venues`;
 }
+
 export const URL = "https://api.noroff.dev/api/v1/holidaze/venues"
 export const SpecificVenue = "https://api.noroff.dev/api/v1/holidaze/venues"
 export const LoginURL = "https://api.noroff.dev/api/v1/holidaze/auth/login"
@@ -22,4 +29,4 @@ export const ProfileURL = "https://api.noroff.dev/api/v1/holidaze/profiles"
 
 
 export const SortByCreated = "?sort=created"
-export { BookingsByProfile };
+export { BookingsByProfile, VenuesByProfile, UpdateMedia };

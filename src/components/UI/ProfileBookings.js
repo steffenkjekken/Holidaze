@@ -12,6 +12,8 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Button from '@mui/material/Button';
 import format from 'date-fns/format';
+import DeleteIcon from '@mui/icons-material/Delete';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const ProfileBookings = () => {
 
@@ -36,24 +38,26 @@ const ProfileBookings = () => {
       };
 
 
-    if (isLoading) {
-        return <span className="visually-hidden">Loading...</span>;
-      }
-    
-      if (isError) {
-        return <div>Error</div>;
-      }
 
-    console.log(data);
+    //console.log(data);
 
     const renderData = data.map((data) => {
     const { id, created, dateFrom, dateTo, guests, venue } = data;
 
-    console.log(venue.media[0]);
+    if (isLoading) {
+        return < CircularProgress color="secondary"  key={id} />;
+        }
+        
+        if (isError) {
+        return <div  key={id}>Error</div>;
+        }
+    
+        if (!data) {
+        return  <div  key={id}>Data is loading</div>;
+        }
     
     return (
-        <>
-        <Accordion>
+        <Accordion key={id}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
@@ -61,10 +65,9 @@ const ProfileBookings = () => {
         > <Box sx={{
             display:'flex',
             flexDirection:'column'
-
         }}>
           <Typography sx={{ flexShrink: 0 }}>{venue.name}</Typography>
-          <Typography variant='subtitle2' align='right' sx={{ color: 'text.secondary' }}>
+          <Typography variant='subtitle2' sx={{ color: 'text.secondary' }}>
             {format(new Date (dateFrom), 'dd/MM/yyyy')} - {format(new Date (dateTo), 'dd/MM/yyyy')}
             </Typography>
             </Box>
@@ -75,12 +78,14 @@ const ProfileBookings = () => {
             image={venue.media[0]}
             title={venue.name}
         />
-        <CardContent>
+        <CardContent sx={{
+            pb:0
+        }}>
             <Box sx={{
                 display:'flex',
                 justifyContent:'space-between'
             }}>
-            <Typography gutterBottom variant="h5" component="div">
+            <Typography gutterBottom component="h5">
             {venue.name}
             </Typography>
             <Typography variant="body2" color="text.secondary" align='right' sx={{ width:"100%"}}>
@@ -102,23 +107,23 @@ const ProfileBookings = () => {
             </Typography>
         </CardContent>
         <CardActions>
-            <Button size="small">Update</Button>
-            <Button size="small" onClick={(e) => handleDeleteBooking(e, id)}>Delete</Button>
+            <Box sx={{ml:"auto"}}>
+                <Button variant='outlined' startIcon={<DeleteIcon />} onClick={(e) => handleDeleteBooking(e, id)}>Delete</Button>
+            </Box>
         </CardActions>
         </AccordionDetails>
       </Accordion>
-      </>
     );
     });
 
+
+
   return (
-        <Grid item xs={6} sx={{ p:2 }}>
+        <Grid item xs={12} md={6} sx={{ p:2 }}>
             <Typography component="h1" variant="h5" sx={{ pb:2}}>
             Your Bookings
             </Typography>
-            <Box>
             {renderData}
-            </Box>
         </Grid>
   )
 }

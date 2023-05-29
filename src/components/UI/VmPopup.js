@@ -24,7 +24,7 @@ function VmPopup() {
         "venueManager": true
       }
     const { put } = useApi(ProfileURL, token);
-    console.log("Parameters:", ProfileURL + user.user, token);
+    //console.log("Parameters:", ProfileURL + user.user, token);
 
     const handleVenueManager = async (e, body) => {
         e.preventDefault();
@@ -34,9 +34,7 @@ function VmPopup() {
             console.log('Venue Manager successful!');
             dispatch(
               login({
-                user: response?.name,
-                email: response?.email,
-                avatar: response?.avatar,
+                ...user,
                 venueManager: response?.venueManager,
               })
             );

@@ -36,7 +36,7 @@ const MetaObjects = ({ items }) => {
         if (value) {
           const icon = getIcon(itemName); // Get the icon based on the item name
           return (
-            <Chip icon={icon} label={itemName}/>
+            <Chip key={itemName} icon={icon} label={itemName}/>
           );
         } else {
           return null; // Don't render the item if its value is false

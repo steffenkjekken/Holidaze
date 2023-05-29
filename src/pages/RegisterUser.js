@@ -4,33 +4,75 @@ import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
 import TextField from '@mui/material/TextField'
 import AppRegistrationRoundedIcon from '@mui/icons-material/AppRegistrationRounded';
-import { Grid, CssBaseline, Link, Button, Typography, Avatar } from '@mui/material'
+import { Grid, CssBaseline, Link, Button, Typography, Avatar, Alert } from '@mui/material'
 import { Link as RouterLink } from 'react-router-dom'
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState } from 'react'
 import { RegisterURL } from '../components/utils/constants'
 import axios from 'axios'
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
 
-const theme = createTheme();
+const validationSchema = Yup.object().shape({
+  name: Yup.string()
+    .required('Name is required')
+    .min(3, 'Name must be at least 3 characters'),
+  email: Yup.string()
+    .required('Email is required')
+    .matches(/^[A-Za-z0-9._%+-]+@stud.noroff\.no$/, 'Email must be valid stud.noroff mail')
+    .email('Email is invalid'),
+  password: Yup.string()
+    .required('Password is required')
+    .min(8, 'Password must be at least 8 characters')
+    .max(40, 'Password must not exceed 40 characters'),
+  avatar: Yup.string()
+});
 
 
 const RegisterUser = () => {
     const [formData, setFormData] = useState({})
+    const [alert, setAlert] = useState(false);
+    const [alertContent, setAlertContent] = useState('');
+    const [success, setSuccess] = useState(false);
+    const [successContent, setSuccessContent] = useState('');
+
+
+    const {
+      register,
+      handleSubmit,
+      formState: { errors }
+    } = useForm({
+      resolver: yupResolver(validationSchema)
+    });
 
     const handleChange = (user, value) => {
     setFormData({...formData, [user]: value})
     }
   
-  const handleSubmit = (e) => {
-      e.preventDefault();
+  const onSubmit = (e) => {
       const data = new FormData(e.currentTarget);
       let requestBody = {
           ...formData
       }
-    axios.post(RegisterURL, requestBody).then(res => console.log('post res', res))
-    .catch(error => {
-        console.error('There was an error in post request!', error);
-    });
+      axios.post(RegisterURL, requestBody)
+      .then(res => {
+        if(res.request.statusText === "Created")
+        {
+          setSuccessContent("Succesfully registered");
+          setSuccess(true);
+        }
+      else
+        {
+          setSuccess(false);
+        }
+        console.log('post res', res.request.statusText);
+      })
+      .catch(error => {
+        console.log('Error response:', error.response.data.errors[0].message);
+        setAlertContent(error.response.data.errors[0].message);
+        setAlert(true);
+      });
+
       console.log({
         name: data.get('name'),
         email: data.get('email'),
@@ -40,7 +82,6 @@ const RegisterUser = () => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
     <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
@@ -83,8 +124,13 @@ const RegisterUser = () => {
                 type="name"
                 id="name"
                 autoComplete="name"
+                {...register('name')}
+                error={errors.name ? true : false}
                 onChange={(event) => handleChange('name', event.target.value)}
               />
+              <Typography variant="inherit" color="textSecondary">
+                {errors.name?.message}
+              </Typography>
               <TextField
                 margin="normal"
                 required
@@ -93,8 +139,13 @@ const RegisterUser = () => {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                {...register('email')}
+                error={errors.email ? true : false}
                 onChange={(event) => handleChange('email', event.target.value)}
               />
+              <Typography variant="inherit" color="textSecondary">
+                {errors.email?.message}
+              </Typography>
               <TextField
                 margin="normal"
                 required
@@ -104,27 +155,46 @@ const RegisterUser = () => {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                {...register('password')}
+                error={errors.password ? true : false}
                 onChange={(event) => handleChange('password', event.target.value)}
               />
+              <Typography variant="inherit" color="textSecondary">
+                {errors.password?.message}
+              </Typography>
               <TextField
                 margin="normal"
-                required
                 fullWidth
                 name="avatar"
                 label="Avatar"
                 type="avatar"
                 id="avatar"
                 autoComplete="avatar"
+                {...register('avatar')}
+                error={errors.avatar ? true : false}avatar
                 onChange={(event) => handleChange('avatar', event.target.value)}
               />
+              <Typography variant="inherit" color="textSecondary">
+                {errors.avatar?.message}
+              </Typography>
+              {success ? <Link to="/login" component={RouterLink} variant="body2">
               <Button
-                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Go to login page
+              </Button>
+                  </Link> : <Button
+                onClick={handleSubmit(onSubmit)}
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
                 Register
-              </Button>
+              </Button>}
+              {success ? <Alert severity='success'>{successContent}</Alert> : <></>}
+              {alert ? <Alert severity='error'>{alertContent}</Alert> : <></> }
               <Grid container>
                 <Grid item>
                   <Link to="/login" component={RouterLink} variant="body2">
@@ -136,7 +206,6 @@ const RegisterUser = () => {
           </Box>
         </Grid>
       </Grid>
-      </ThemeProvider>
   )
 }
 

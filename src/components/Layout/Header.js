@@ -26,9 +26,10 @@ import { useNavigate } from 'react-router-dom';
 import { remove } from '../utils/storage';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../store/auth';
+import { useRef } from 'react';
 
 const drawerWidth = 240;
-const navItems = ['Venues', 'About', 'Contact', 'Rent out your Venue'];
+const navItems = [<Link component={RouterLink} to="/" color="inherit" underline='none'>Venues</Link>, 'About', 'Contact', 'Rent out your Venue'];
 const avatarItems = ['Profile', 'Bookings'];
 
 function DrawerAppBar(props) {
@@ -53,6 +54,8 @@ function DrawerAppBar(props) {
     setAnchorElUser(null);
   };
 
+  const formRef = useRef(null);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -65,7 +68,7 @@ function DrawerAppBar(props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Link to="/">
-      <Typography variant="h6" sx={{ my: 2 }}>
+      <Typography component="h6" sx={{ my: 2 }}>
         Holidaze
       </Typography>
       </Link>
@@ -96,7 +99,7 @@ function DrawerAppBar(props) {
     <>
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar component="nav" position='static' sx={{backgroundColor: '#FFF', color: 'black'}}>
+      <AppBar component="nav" position='static'>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -110,7 +113,7 @@ function DrawerAppBar(props) {
           
           <Typography
             variant="h6"
-            component="div"
+            component="h1"
             sx={{ flexGrow: 1 }}
           >
             <Link component={RouterLink} to="/" color="inherit" underline='none'>Holidaze</Link>
@@ -118,12 +121,17 @@ function DrawerAppBar(props) {
             {auth ? 
             <Stack direction="row" spacing={1}> 
             <Button
+            variant='outlined'
+            color='primary'
             onClick={handleClick}
             aria-controls={open ? 'account-menu' : undefined}
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
-            endIcon={<KeyboardArrowDownIcon />}>
-              <Avatar alt={user.user} src={user.avatar} />
+            endIcon={<KeyboardArrowDownIcon />}
+            sx={{
+              color:"white",
+              borderColor:"white"
+            }}>
               <Typography>{user.user}</Typography>
             </Button>
             <Menu
@@ -135,19 +143,19 @@ function DrawerAppBar(props) {
               transformOrigin={{ horizontal: 'right', vertical: 'top' }}
               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-              <Link component={RouterLink} to='/profile'>
+              <Link component={RouterLink} underline="none" to='/profile'>
                 <MenuItem onClick={handleClose}>
-                  <Avatar /> Profile
+                <Avatar alt={user.user} src={user.avatar} /> Profile
                 </MenuItem>
               </Link>
-              <Link component={RouterLink} to='/createvenue'>
+              <Link component={RouterLink} underline="none" to='/createvenue'>
                 <MenuItem onClick={handleClose}>
                   List venue
                 </MenuItem>
               </Link>
             <Divider />
-            <Link component={RouterLink} to='/'>
-            <MenuItem onClick={handleLogout} size="small" variant="contained">
+            <Link component={RouterLink} underline="none" to='/'>
+            <MenuItem onClick={handleLogout} size="small">
               <ListItemIcon>
                 <Logout fontSize="small" />
               </ListItemIcon>
@@ -158,11 +166,14 @@ function DrawerAppBar(props) {
             </Stack>
             :
             <Stack direction="row" spacing={1}>
-            <Link component={RouterLink} to='/login'>
-            <Button size="small" variant="contained">Sign in</Button>
+            <Link component={RouterLink} underline="none" to='/login'>
+            <Button size="small" color='secondary' variant="contained" sx={{
+              backgroundColor:"white",
+              color:"red"
+            }}>Sign in</Button>
             </Link>
-            <Link component={RouterLink} to='/register'>
-            <Button size="small" variant="outlined">Register</Button>
+            <Link component={RouterLink} underline="none" to='/register'>
+            <Button size="small" color='secondary' variant="outlined">Register</Button>
             </Link>
             </Stack> 
             }
@@ -209,16 +220,7 @@ function DrawerAppBar(props) {
         </Drawer>
       </Box>
     </Box>
-    <AppBar position='relative'>
-    <Box sx={{ display: { xs: 'none', sm: 'flex' },margin: 'auto', width: 'inherit', flexGrow: 1, justifyContent: 'space-around', maxWidth: '600px' }}>
-          {navItems.map((item) => (
-            <Button key={item} sx={{ color: '#FFF' }}>
-              {item}
-            </Button>
-          ))}
-        </Box>
-      </AppBar>
-      </>
+    </>
   );
 }
 

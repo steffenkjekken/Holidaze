@@ -2,13 +2,14 @@ import useApi from "../../hooks/useApi"
 import { URL, SortByCreated } from "../utils/constants"
 import { Item } from "./Item";
 import Grid from '@mui/material/Unstable_Grid2';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 const List = (props) => {
     const { data, isLoading, isError } = useApi(URL + SortByCreated);
     
       if (isLoading) {
-        return <span className="visually-hidden">Loading...</span>;
+        return< CircularProgress color="secondary" />;
       }
     
       if (isError) {
@@ -35,7 +36,7 @@ const List = (props) => {
             maxWidth: '950px',
             margin: 'auto'}}>   
             {data ? filterVenues.map((venue, id)=>{
-                return <Grid xs={12} sm={6} md={4} alignItems="center" justifyContent="center"><Item key={id} venue={venue}/></Grid>;
+                return <Grid xs={12} sm={6} md={4} key={id} alignItems="center" justifyContent="center"><Item venue={venue}/></Grid>;
             }): "data not found"}
         </Grid>
 

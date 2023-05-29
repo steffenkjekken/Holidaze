@@ -6,42 +6,25 @@ import Home from './pages/Home'
 import Venue from './pages/Venue';
 import Profile from './pages/Profile';
 import CreateVenue from './pages/CreateVenue';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
+import ProtectedRoutes from './components/utils/protectedRoute';
+import { theme } from './assets/theme';
 
 function App() {
-
-  const theme = createTheme({
-    components: {
-      MuiPickersDay: {
-        styleOverrides: {
-          root: {
-            backgroundColor: "white",
-            "&.Mui-disabled": {
-              "backgroundColor": "#cecece",
-              '&:hover': {
-                background: "#f00",
-             },
-              ":not(.Mui-selected)": {
-                "color": "black",
-              }
-            },
-          },
-        },
-      },
-    },
-  });
 
   return (
     <>
     <ThemeProvider theme={theme}>
     <Layout>
     <Routes>
+      <Route element={<ProtectedRoutes/>}>
+        <Route path="/profile" element={<Profile/>}/>
+        <Route path="/createvenue" element={<CreateVenue/>}/>
+      </Route>
       <Route path="/" element={<Home/>}/>
       <Route path="/venues/:id" element={<Venue/>}/>
       <Route path="/register" element={<RegisterUser/>}/>
       <Route path="/login" element={<Login/>}/>
-      <Route path="/profile" element={<Profile/>}/>
-      <Route path="/createvenue" element={<CreateVenue/>}/>
       <Route path="*" element={<p>Not Found</p>}/>
     </Routes>
     </Layout>

@@ -5,7 +5,6 @@ import TextField from '@mui/material/TextField'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Grid,CssBaseline, Link, Checkbox, Button, Typography, Avatar, FormControlLabel } from '@mui/material'
 import Beach from "../assets/images/Beach.jpg"
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link as RouterLink } from 'react-router-dom';
 import { LoginURL } from '../components/utils/constants';
 import axios from 'axios';
@@ -14,9 +13,7 @@ import { save } from '../components/utils/storage';
 import { updateLoginVisibility } from '../components/utils/auth';
 import { useDispatch } from 'react-redux';
 import { login } from '../store/auth';
-
-
-const theme = createTheme();
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -24,45 +21,68 @@ const Login = () => {
 
   const [formData, setFormData] = useState({})
   const [success, setSuccess ] = useState(false)
+  const [errors, setErrors] = useState([]);
 
   const handleChange = (user, value) => {
     setFormData({...formData, [user]: value})
 }
   
-  const handleSubmit = async (e) => {
-      e.preventDefault();
-      const data = new FormData(e.currentTarget);
-      let requestBody = {
-          ...formData
-      }
-      try {
-        const response = await axios.post(LoginURL, requestBody);
-        save('AuthToken', response?.data?.accessToken);
-        dispatch(login({
-          user:  response?.data?.name,
-          email:  response?.data?.email,
-          avatar:  response?.data?.avatar,
-          venueManager:  response?.data?.venueManager
-        }))
-        updateLoginVisibility()
-        setSuccess(true)
-        console.log(data);
-      } catch (error) {
-        console.log(error);
-      }      
+const handleSubmit = (e) => {
+  e.preventDefault();
+  const data = new FormData(e.currentTarget);
+  let requestBody = {
+    ...formData
   };
+
+  axios.post(LoginURL, requestBody)
+    .then((response) => {
+      save('AuthToken', response?.data?.accessToken);
+      dispatch(login({
+        user:  response?.data?.name,
+        email:  response?.data?.email,
+        avatar:  response?.data?.avatar,
+        venueManager:  response?.data?.venueManager
+      }));
+      updateLoginVisibility();
+      setSuccess(true);
+      console.log(data);
+    })
+    .catch((error) => {
+      console.log('Error response:', error.response);
+      if (error.response && error.response.data && error.response.data.errors) {
+        const receivedErrors = error.response.data.errors;
+        if (Array.isArray(receivedErrors)) {
+          setErrors(receivedErrors);
+        } else {
+          setErrors([{ message: 'An error occurred. Please try again later.' }]);
+        }
+      } else {
+        setErrors([{ message: 'An error occurred. Please try again later.' }]);
+      }
+    });
+};
 
   return (
     <>
-    <ThemeProvider theme={theme}>
        {success ? (
-                <section>
-                    <h1>You are logged in!</h1>
+        <Box sx={{
+          mt:2
+        }}>
+                <Paper elevation={3} sx={{
+                  width: {xs: "90%", md:"60%"},
+                  margin: "auto",
+                  textAlign: "center",
+                  py:2
+                }}>
+                    <Typography variant='h4'>You are logged in!</Typography>
+                    <CheckCircleIcon fontSize='large' color='success'/>
                     <br />
-                    <p>
+                    <Link component={RouterLink} to="/" underline='none' variant="subtitle1">
                         Go to Home
-                    </p>
-                </section>
+                    </Link>
+                </Paper>
+              </Box>
+
             ) : (
     <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
@@ -107,6 +127,11 @@ const Login = () => {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                error={errors.some(error => error.path && error.path.includes('email'))}
+                helperText={errors
+                  .filter(error => error.path && error.path.includes('email'))
+                  .map(error => error.message)
+                  .join(', ')}
                 onChange={(event) => handleChange('email', event.target.value)}
               />
               <TextField
@@ -118,6 +143,11 @@ const Login = () => {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                error={errors.some(error => error.path && error.path.includes('password'))}
+                helperText={errors
+                  .filter(error => error.path && error.path.includes('password'))
+                  .map(error => error.message)
+                  .join(', ')}
                 onChange={(event) => handleChange('password', event.target.value)}
               />
               <FormControlLabel
@@ -132,6 +162,11 @@ const Login = () => {
               >
                 Sign In
               </Button>
+              {errors.length > 0 && (
+                <Typography color="error" align="center">
+                  {errors[0].message}
+                </Typography>
+              )}
               <Grid container>
                 <Grid item>
                   <Link component={RouterLink} to="/register" variant="body2">
@@ -144,7 +179,6 @@ const Login = () => {
         </Grid>
       </Grid>
             )}
-      </ThemeProvider>
       </>
   )
 }

@@ -47,11 +47,11 @@ const useApi = (url, token) => {
     }
   };
 
-  const putData = async (id, payload) => {
+  const putData = async (id, payload, media = '') => {
     try {
       setIsLoading(true);
       setIsError(false);
-      const response = await fetch(`${url}/${id}`, {
+      const response = await fetch(`${url}/${id}${media}`, {
         method: 'PUT',
         headers: { ...headers, 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -75,9 +75,17 @@ const useApi = (url, token) => {
         method: 'DELETE',
         headers,
       });
-      const json = await response.json();
-      setData(json);
-      return json; // Set the response object
+      if (response.ok) {
+        if (response.status !== 204) {
+          const json = await response.json();
+          setData(json);
+          return json;
+        } else {
+          return null;
+        }
+      } else {
+        throw new Error('Request failed');
+      }
     } catch (error) {
       console.log(error);
       setIsError(true);

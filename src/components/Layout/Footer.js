@@ -3,14 +3,13 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import BottomNavigation from '@mui/material/BottomNavigation'
 
 const navItems = ['Venues', 'About', 'Contact', 'Rent out your Venue'];
 
 const Footer = () => {
   return (
-    <BottomNavigation>
-        <Typography variant="h6">
+    <Box>
+        <Typography component="h6">
          Holidaze
        </Typography>
         <Toolbar>
@@ -22,7 +21,7 @@ const Footer = () => {
           ))}
         </Box>
      </Toolbar>
-    </BottomNavigation>
+    </Box>
   )
 }
 

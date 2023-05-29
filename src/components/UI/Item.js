@@ -1,12 +1,13 @@
-import {ImageListItem, Link, ImageListItemBar } from '@mui/material';
+import {ImageListItem, Link, Typography, Box } from '@mui/material';
+import StarIcon from '@mui/icons-material/Star';
 import { Link as RouterLink } from 'react-router-dom';
 import Image from 'mui-image';
 
 export const Item = ({venue}) => {
 
   return (
-        <Link component={RouterLink} to={`/venues/${venue.id}`}>
-        <ImageListItem key={venue.id}>
+        <Link component={RouterLink} underline="none" to={`/venues/${venue.id}`} >
+        <ImageListItem>
           <Image
             src={`${venue.media[0]}`}
             srcSet={`${venue.media[0]}`}
@@ -20,11 +21,21 @@ export const Item = ({venue}) => {
                 borderRadius:"5px"
             }}
           />
-          <ImageListItemBar
-            title={venue.name}
-            subtitle={<span>by: {venue.author}</span>}
-            position="below"
-          />
+          <Box>
+          <Box sx={{
+                display:'flex',
+                justifyContent:'space-between'
+            }}>
+            <Typography variant="subtitle1">{venue.name}</Typography>
+              <Box sx={{
+                display: "flex"
+              }}>
+                <StarIcon color='warning' sx={{ mt:1, pt:"3px"}}/>
+                <Typography variant="subtitle1" sx={{ mt:"8px"}}>{venue.rating}</Typography>
+              </Box>
+            </Box>
+          <Typography variant="subtitle2">${venue.price}</Typography>
+          </Box>
         </ImageListItem>
         </Link>
   )
